@@ -9,6 +9,7 @@ use Alura\Leilao\Model\Leilao;
 use Alura\Leilao\Model\Usuario;
 use PHPUnit\Framework\TestCase;
 use Alura\Leilao\Service\Avaliador;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class AvaliadorTest extends TestCase
 {
@@ -19,11 +20,9 @@ class AvaliadorTest extends TestCase
         $this->leiloeiro = new Avaliador();
     }
     
-    /**
-     * @dataProvider leilaoEmOrdemCrescente
-     * @dataProvider leilaoEmOrdemDecrescente
-     * @dataProvider leilaoEmOrdemAleatoria
-     */
+    #[DataProvider('leilaoEmOrdemCrescente')]
+    #[DataProvider('leilaoEmOrdemDecrescente')]
+    #[DataProvider('leilaoEmOrdemAleatoria')]
     public function testAvaliadorDeveEncontrarOMaiorValorDeLances(Leilao $leilao)
     {
         $this->leiloeiro->avalia($leilao);
@@ -35,11 +34,9 @@ class AvaliadorTest extends TestCase
         self::assertEquals($valorEsperado, $maiorValor);
     }
 
-    /**
-     * @dataProvider leilaoEmOrdemCrescente
-     * @dataProvider leilaoEmOrdemDecrescente
-     * @dataProvider leilaoEmOrdemAleatoria
-     */
+    #[DataProvider('leilaoEmOrdemCrescente')]
+    #[DataProvider('leilaoEmOrdemDecrescente')]
+    #[DataProvider('leilaoEmOrdemAleatoria')]
     public function testAvaliadorDeveEncontrarOMenorValorDeLances(Leilao $leilao)
     {
         $this->leiloeiro->avalia($leilao);
@@ -51,11 +48,9 @@ class AvaliadorTest extends TestCase
         self::assertEquals($valorEsperado, $menorValor);
     }
 
-    /**
-     * @dataProvider leilaoEmOrdemCrescente
-     * @dataProvider leilaoEmOrdemDecrescente
-     * @dataProvider leilaoEmOrdemAleatoria
-     */
+    #[DataProvider('leilaoEmOrdemCrescente')]
+    #[DataProvider('leilaoEmOrdemDecrescente')]
+    #[DataProvider('leilaoEmOrdemAleatoria')]
     public function testAvaliadorDeveBuscarOsTresMaioresLances(Leilao $leilao)
     {
         $this->leiloeiro->avalia($leilao);
@@ -83,7 +78,7 @@ class AvaliadorTest extends TestCase
         $leilao->recebeLance(new Lance($joao, 2500));
 
         return [
-            [$leilao]
+            'ordem-crescente' => [$leilao]
         ];
     }
 
@@ -102,7 +97,7 @@ class AvaliadorTest extends TestCase
         $leilao->recebeLance(new Lance($flora, 500));
 
         return [
-            [$leilao]
+           'ordem-decrescente' => [$leilao]
         ];
     }
 
@@ -121,7 +116,7 @@ class AvaliadorTest extends TestCase
         $leilao->recebeLance(new Lance($maria, 2000));
 
         return [
-            [$leilao]
+            'orderm-aleatoria' => [$leilao]
         ];
     }
 }

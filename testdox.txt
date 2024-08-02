@@ -1,11 +1,17 @@
 Avaliador (Alura\Leilao\Tests\Service\Avaliador)
- [x] Avaliador deve encontrar o maior valor de lances with data set #0
- [x] Avaliador deve encontrar o maior valor de lances with data set #1
- [x] Avaliador deve encontrar o maior valor de lances with data set #2
- [x] Avaliador deve encontrar o menor valor de lances with data set #0
- [x] Avaliador deve encontrar o menor valor de lances with data set #1
- [x] Avaliador deve encontrar o menor valor de lances with data set #2
- [x] Avaliador deve buscar os tres maiores lances with data set #0
- [x] Avaliador deve buscar os tres maiores lances with data set #1
- [x] Avaliador deve buscar os tres maiores lances with data set #2
+ [x] Avaliador deve encontrar o maior valor de lances with data set "ordem-crescente"
+ [x] Avaliador deve encontrar o maior valor de lances with data set "ordem-decrescente"
+ [x] Avaliador deve encontrar o maior valor de lances with data set "orderm-aleatoria"
+ [x] Avaliador deve encontrar o menor valor de lances with data set "ordem-crescente"
+ [x] Avaliador deve encontrar o menor valor de lances with data set "ordem-decrescente"
+ [x] Avaliador deve encontrar o menor valor de lances with data set "orderm-aleatoria"
+ [x] Avaliador deve buscar os tres maiores lances with data set "ordem-crescente"
+ [x] Avaliador deve buscar os tres maiores lances with data set "ordem-decrescente"
+ [x] Avaliador deve buscar os tres maiores lances with data set "orderm-aleatoria"
+
+Leilao (Alura\Leilao\Test\Model\Leilao)
+ [x] Um leilao deve receber lances with data set "2-lances"
+ [x] Um leilao deve receber lances with data set "1-lance"
+ [x] Leilao nao deve receber lances repetidos
+ [x] Usuario nao pode dar mais de cinco lances
 
