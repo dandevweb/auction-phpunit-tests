@@ -1,81 +1,57 @@
 <?php
 
-declare(strict_types=1);
-
-namespace Alura\Leilao\Test\Model;
+namespace Alura\Leilao\Tests\Domain;
 
 use Alura\Leilao\Model\Lance;
 use Alura\Leilao\Model\Leilao;
 use Alura\Leilao\Model\Usuario;
-use PHPUnit\Framework\TestCase;
+use DomainException;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
 
 class LeilaoTest extends TestCase
 {
-
-    #[DataProvider('geraLances')]
-    public function testUmLeilaoDeveReceberLances(
-        int $qtdLances,
-        Leilao $leilao,
-        array $valores
-    )
+    public function testProporLanceEmLeilaoFinalizadoDeveLancarExcecao()
     {
-        static::assertCount($qtdLances, $leilao->getLances());
-        foreach ($valores as $i => $valorEsperado) {
-            static::assertEquals($valorEsperado, $leilao->getLances()[$i]->getValor());
+        $this->expectException(DomainException::class);
+        $this->expectExceptionMessage('Este leilão já está finalizado');
+
+        $leilao = new Leilao('Fiat 147 0KM');
+        $leilao->finaliza();
+
+        $leilao->recebeLance(new Lance(new Usuario(''), 1000));
+    }
+
+    #[DataProvider('dadosParaProporLances')]
+    public function testProporLancesEmLeilaoDeveFuncionar(int $qtdEsperado, array $lances)
+    {
+        $leilao = new Leilao('Fiat 147 0KM');
+        foreach ($lances as $lance) {
+            $leilao->recebeLance($lance);
         }
+
+        static::assertCount($qtdEsperado, $leilao->getLances());
     }
 
-    public function testLeilaoNaoDeveReceberLancesRepetidos()
+    public function testMesmoUsuarioNaoPodeProporDoisLancesSeguidos()
     {
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('Usuário não pode propor 2 lances consecutivos');
-        
-        $leilao = new Leilao('Variante');
-        $ana = new Usuario('Ana');
+        $this->expectException(DomainException::class);
+        $this->expectExceptionMessage('Usuário já deu o último lance');
+        $usuario = new Usuario('Ganancioso');
 
-        $leilao->recebeLance(new Lance($ana, 1000));
-        $leilao->recebeLance(new Lance($ana, 1500));
-        
+        $leilao = new Leilao('Objeto inútil');
+
+        $leilao->recebeLance(new Lance($usuario, 1000));
+        $leilao->recebeLance(new Lance($usuario, 1100));
     }
 
-    public function testUsuarioNaoPodeDarMaisDeCincoLances()
+    public static function dadosParaProporLances()
     {
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('Usuário não pode propor mais de 5 lances por leilão');
-        $leilao = new Leilao('Variante');
-        $ana = new Usuario('Ana');
-        $joao = new Usuario('Joao');
-
-        $leilao->recebeLance(new Lance($ana, 1000));
-        $leilao->recebeLance(new Lance($joao, 1500));
-        $leilao->recebeLance(new Lance($ana, 2000));
-        $leilao->recebeLance(new Lance($joao, 2500));
-        $leilao->recebeLance(new Lance($ana, 3000));
-        $leilao->recebeLance(new Lance($joao, 3500));
-        $leilao->recebeLance(new Lance($ana, 4000));
-        $leilao->recebeLance(new Lance($joao, 4500));
-        $leilao->recebeLance(new Lance($ana, 5000));
-        $leilao->recebeLance(new Lance($joao, 5500));
-        $leilao->recebeLance(new Lance($ana, 6000));
-    }
-
-    public static function geraLances()
-    {
-        $joao = new Usuario('Joao');
-        $maria = new Usuario('Maria');
-
-        $leilaoCom1Lance = new Leilao('Variante');
-        $leilaoCom1Lance->recebeLance(new Lance($maria, 5000));
-
-        $leilaoCom2Lance = new Leilao('Fusca');
-        $leilaoCom2Lance->recebeLance(new Lance($joao, 1000));
-        $leilaoCom2Lance->recebeLance(new Lance($maria, 2000));
-
+        $usuario1 = new Usuario('Usuário 1');
+        $usuario2 = new Usuario('Usuário 2');
         return [
-            '2-lances' => [2, $leilaoCom2Lance, [1000, 2000]],
-            '1-lance' => [1, $leilaoCom1Lance, [5000]],
+            [1, [new Lance($usuario1, 1000)]],
+            [2, [new Lance($usuario1, 1000), new Lance($usuario2, 2000)]],
         ];
     }
-    
 }

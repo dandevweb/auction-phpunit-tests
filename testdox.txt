@@ -11,9 +11,14 @@ Avaliador (Alura\Leilao\Tests\Service\Avaliador)
  [x] Leilao vazio nao pode ser avaliado
  [x] Leilao finalizado nao pode ser avaliado
 
-Leilao (Alura\Leilao\Test\Model\Leilao)
- [x] Um leilao deve receber lances with data set "2-lances"
- [x] Um leilao deve receber lances with data set "1-lance"
- [x] Leilao nao deve receber lances repetidos
- [x] Usuario nao pode dar mais de cinco lances
+Encerrador (Alura\Leilao\Tests\Service\Encerrador)
+ [x] Leiloes com mais de uma semana devem ser encerrados
+ [x] Deve continuar o processamento ao encontrar erro ao enviar email
+ [x] So deve enviar leilao por email apos finalizado
+
+Leilao (Alura\Leilao\Tests\Domain\Leilao)
+ [x] Propor lance em leilao finalizado deve lancar excecao
+ [x] Propor lances em leilao deve funcionar with data set #0
+ [x] Propor lances em leilao deve funcionar with data set #1
+ [x] Mesmo usuario nao pode propor dois lances seguidos
 

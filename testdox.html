@@ -65,12 +65,18 @@
             <li class="success">Leilao vazio nao pode ser avaliado</li>
             <li class="success">Leilao finalizado nao pode ser avaliado</li>
         </ul>
-        <h2>Leilao (Alura\Leilao\Test\Model\Leilao)</h2>
+        <h2>Encerrador (Alura\Leilao\Tests\Service\Encerrador)</h2>
         <ul>
-            <li class="success">Um leilao deve receber lances with data set "2-lances"</li>
-            <li class="success">Um leilao deve receber lances with data set "1-lance"</li>
-            <li class="success">Leilao nao deve receber lances repetidos</li>
-            <li class="success">Usuario nao pode dar mais de cinco lances</li>
+            <li class="success">Leiloes com mais de uma semana devem ser encerrados</li>
+            <li class="success">Deve continuar o processamento ao encontrar erro ao enviar email</li>
+            <li class="success">So deve enviar leilao por email apos finalizado</li>
+        </ul>
+        <h2>Leilao (Alura\Leilao\Tests\Domain\Leilao)</h2>
+        <ul>
+            <li class="success">Propor lance em leilao finalizado deve lancar excecao</li>
+            <li class="success">Propor lances em leilao deve funcionar with data set #0</li>
+            <li class="success">Propor lances em leilao deve funcionar with data set #1</li>
+            <li class="success">Mesmo usuario nao pode propor dois lances seguidos</li>
         </ul>
     </body>
 </html>
