@@ -1,6 +1,6 @@
 <?php
 
-namespace Alura\Leilao\Infra;
+namespace Dandevweb\Auction\Infra;
 
 class ConnectionCreator
 {
@@ -9,8 +9,8 @@ class ConnectionCreator
     public static function getConnection(): \PDO
     {
         if (is_null(self::$pdo)) {
-            $caminhoBanco = __DIR__ . '/../../banco.sqlite';
-            self::$pdo = new \PDO('sqlite:' . $caminhoBanco);
+            $pathDb = __DIR__ . '/../../banco.sqlite';
+            self::$pdo = new \PDO('sqlite:' . $pathDb);
             self::$pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         }
 

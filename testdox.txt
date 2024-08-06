@@ -1,4 +1,10 @@
-Avaliador (Alura\Leilao\Tests\Service\Avaliador)
+Auction (Dandevweb\Auction\Tests\Domain\Auction)
+ [x] Throws exception when bidding in closed auction
+ [x] Propose bids in auction should work with data set #0
+ [x] Propose bids in auction should work with data set #1
+ [x] Same user cannot propose two bids in a row
+
+Auctioneer (Dandevweb\Auction\Tests\Service\Auctioneer)
  [x] Avaliador deve encontrar o maior valor de lances with data set "ordem-crescente"
  [x] Avaliador deve encontrar o maior valor de lances with data set "ordem-decrescente"
  [x] Avaliador deve encontrar o maior valor de lances with data set "orderm-aleatoria"
@@ -11,14 +17,8 @@ Avaliador (Alura\Leilao\Tests\Service\Avaliador)
  [x] Leilao vazio nao pode ser avaliado
  [x] Leilao finalizado nao pode ser avaliado
 
-Encerrador (Alura\Leilao\Tests\Service\Encerrador)
+Closer (Dandevweb\Auction\Tests\Service\Closer)
  [x] Leiloes com mais de uma semana devem ser encerrados
  [x] Deve continuar o processamento ao encontrar erro ao enviar email
  [x] So deve enviar leilao por email apos finalizado
-
-Leilao (Alura\Leilao\Tests\Domain\Leilao)
- [x] Propor lance em leilao finalizado deve lancar excecao
- [x] Propor lances em leilao deve funcionar with data set #0
- [x] Propor lances em leilao deve funcionar with data set #1
- [x] Mesmo usuario nao pode propor dois lances seguidos
 

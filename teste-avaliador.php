@@ -1,25 +1,25 @@
 <?php
 
-use Alura\Leilao\Model\Lance;
-use Alura\Leilao\Model\Leilao;
-use Alura\Leilao\Model\Usuario;
-use Alura\Leilao\Service\Avaliador;
+use Dandevweb\Auction\Model\Offer;
+use Dandevweb\Auction\Model\Auction;
+use Dandevweb\Auction\Model\User;
+use Dandevweb\Auction\Service\Auctioneer;
 
 require 'vendor/autoload.php';
 
-$leilao = new Leilao('Fiat 147 0km');
+$auction = new Auction('Fiat 147 0km');
 
-$maria = new Usuario('Maria');
-$joao = new Usuario('João');
+$maria = new User('Maria');
+$joao = new User('João');
 
-$leilao->recebeLance(new Lance($maria, 2000));
-$leilao->recebeLance(new Lance($joao, 2500));
+$auction->processOffer(new Offer($maria, 2000));
+$auction->processOffer(new Offer($joao, 2500));
 
-$leiloeiro = new Avaliador();
-$leiloeiro->avalia($leilao);
+$auctioneer = new Auctioneer();
+$auctioneer->evaluate($auction);
 
-$maiorValor = $leiloeiro->getMaiorValor();
+$highestValue = $auctioneer->getHighestOffer();
 
 
 
-echo $maiorValor;
+echo $highestValue;

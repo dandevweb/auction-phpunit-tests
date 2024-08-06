@@ -51,7 +51,14 @@
         </style>
     </head>
     <body>
-        <h2>Avaliador (Alura\Leilao\Tests\Service\Avaliador)</h2>
+        <h2>Auction (Dandevweb\Auction\Tests\Domain\Auction)</h2>
+        <ul>
+            <li class="success">Throws exception when bidding in closed auction</li>
+            <li class="success">Propose bids in auction should work with data set #0</li>
+            <li class="success">Propose bids in auction should work with data set #1</li>
+            <li class="success">Same user cannot propose two bids in a row</li>
+        </ul>
+        <h2>Auctioneer (Dandevweb\Auction\Tests\Service\Auctioneer)</h2>
         <ul>
             <li class="success">Avaliador deve encontrar o maior valor de lances with data set "ordem-crescente"</li>
             <li class="success">Avaliador deve encontrar o maior valor de lances with data set "ordem-decrescente"</li>
@@ -65,18 +72,11 @@
             <li class="success">Leilao vazio nao pode ser avaliado</li>
             <li class="success">Leilao finalizado nao pode ser avaliado</li>
         </ul>
-        <h2>Encerrador (Alura\Leilao\Tests\Service\Encerrador)</h2>
+        <h2>Closer (Dandevweb\Auction\Tests\Service\Closer)</h2>
         <ul>
             <li class="success">Leiloes com mais de uma semana devem ser encerrados</li>
             <li class="success">Deve continuar o processamento ao encontrar erro ao enviar email</li>
             <li class="success">So deve enviar leilao por email apos finalizado</li>
-        </ul>
-        <h2>Leilao (Alura\Leilao\Tests\Domain\Leilao)</h2>
-        <ul>
-            <li class="success">Propor lance em leilao finalizado deve lancar excecao</li>
-            <li class="success">Propor lances em leilao deve funcionar with data set #0</li>
-            <li class="success">Propor lances em leilao deve funcionar with data set #1</li>
-            <li class="success">Mesmo usuario nao pode propor dois lances seguidos</li>
         </ul>
     </body>
 </html>
