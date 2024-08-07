@@ -33,16 +33,16 @@ class Auction
         return $this->getAuctionsIfFinished(true);
     }
 
-    private function getAuctionsIfFinished(bool $finalizado): array
+    private function getAuctionsIfFinished(bool $completed): array
     {
-        $sql = 'SELECT * FROM leiloes WHERE finalizado = ' . ($finalizado ? 1 : 0);
+        $sql = 'SELECT * FROM leiloes WHERE finalizado = ' . ($completed ? 1 : 0);
         $stm = $this->con->query($sql, \PDO::FETCH_ASSOC);
 
-        $dados = $stm->fetchAll();
+        $auctionData = $stm->fetchAll();
         $auctions = [];
-        foreach ($dados as $dado) {
-            $auction = new AuctionModel($dado['descricao'], new \DateTimeImmutable($dado['dataInicio']), $dado['id']);
-            if ($dado['finalizado']) {
+        foreach ($auctionData as $data) {
+            $auction = new AuctionModel($data['descricao'], new \DateTimeImmutable($data['dataInicio']), $data['id']);
+            if ($data['finalizado']) {
                 $auction->finish();
             }
             $auctions[] = $auction;
@@ -61,4 +61,5 @@ class Auction
         $stm->bindValue(':id', $auction->getId(), \PDO::PARAM_INT);
         $stm->execute();
     }
+    
 }

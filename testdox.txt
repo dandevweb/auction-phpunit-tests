@@ -4,6 +4,9 @@ Auction (Dandevweb\Auction\Tests\Domain\Auction)
  [x] Propose bids in auction should work with data set #1
  [x] Same user cannot propose two bids in a row
 
+Auction Dao (Dandevweb\Auction\Tests\Integration\Dao\AuctionDao)
+ [x] Should be able to save and get auctions
+
 Auctioneer (Dandevweb\Auction\Tests\Service\Auctioneer)
  [x] Avaliador deve encontrar o maior valor de lances with data set "ordem-crescente"
  [x] Avaliador deve encontrar o maior valor de lances with data set "ordem-decrescente"
