@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Dandevweb\Auction\Tests\Integration\Dao;
 
-use Dandevweb\Auction\Infra\ConnectionCreator;
 use PHPUnit\Framework\TestCase;
-use Dandevweb\Auction\Dao\Auction as AuctionDao;
 use Dandevweb\Auction\Model\Auction;
+use PHPUnit\Framework\Attributes\DataProvider;
+use Dandevweb\Auction\Dao\Auction as AuctionDao;
 
 class AuctionDaoTest extends TestCase
 {
@@ -31,23 +31,71 @@ class AuctionDaoTest extends TestCase
         self::$pdo->beginTransaction();
     }
 
-    public function testShouldBeAbleToSaveAndGetAuctions()
+    #[DataProvider('auctions')]
+    public function testShouldBeAbleToGetUnfinishedAuctions(array $auctions)
     {
-        
-        $auctionName = 'Fiat 147 0KM';
-        $auction = new Auction($auctionName);
         $auctionDao = new AuctionDao(self::$pdo);
 
-        $auctionDao->save($auction);
+        foreach ($auctions as $auction) {
+            $auctionDao->save($auction);
+        }
 
         $auctions = $auctionDao->getUnfinishedAuctions();
         static::assertCount(1, $auctions);
         static::assertContainsOnlyInstancesOf(Auction::class, $auctions);
-        static::assertSame($auctionName, $auctions[0]->getDescription());
+        static::assertSame('Fiat 147 0KM', $auctions[0]->getDescription());
+        static::assertFalse($auctions[0]->isFinished());
+    }
+
+    #[DataProvider('auctions')]
+    public function testShouldBeAbleToGetFinishedAuctions(array $auctions)
+    {
+        $auctionDao = new AuctionDao(self::$pdo);
+
+        foreach ($auctions as $auction) {
+            $auctionDao->save($auction);
+        }
+
+        $auctions = $auctionDao->getCompletedAuctions();
+        static::assertCount(1, $auctions);
+        static::assertContainsOnlyInstancesOf(Auction::class, $auctions);
+        static::assertSame('Variant', $auctions[0]->getDescription());
+        static::assertTrue($auctions[0]->isFinished());
+    }
+
+    public function testShouldBeAbleToUpdateAuctions()
+    {
+        $auction = new Auction('Brasília Amarela');
+        $auctionDao = new AuctionDao(self::$pdo);
+        $auction = $auctionDao->save($auction);
+        $auction->finish();
+
+        $unfinishedAuctions = $auctionDao->getUnfinishedAuctions();
+        self::assertCount(1, $unfinishedAuctions);
+        self::assertSame('Brasília Amarela', $unfinishedAuctions[0]->getDescription());
+        self::assertFalse($unfinishedAuctions[0]->isFinished());
+
+        $auctionDao->update($auction);
+
+        $finishedAuctions = $auctionDao->getCompletedAuctions();
+        self::assertCount(1, $finishedAuctions);
+        self::assertSame('Brasília Amarela', $finishedAuctions[0]->getDescription());
+        self::assertTrue($finishedAuctions[0]->isFinished());
     }
 
     public function tearDown(): void
     {
         self::$pdo->rollBack();
+    }
+
+    public static function auctions(): array
+    {
+        $unfinishedAuction = new Auction('Fiat 147 0KM');
+        $finished = new Auction('Variant');
+        $finished->finish();
+
+        return [
+            [[$unfinishedAuction, $finished]]
+        ];
     }
 }

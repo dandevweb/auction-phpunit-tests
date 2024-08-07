@@ -5,7 +5,9 @@ Auction (Dandevweb\Auction\Tests\Domain\Auction)
  [x] Same user cannot propose two bids in a row
 
 Auction Dao (Dandevweb\Auction\Tests\Integration\Dao\AuctionDao)
- [x] Should be able to save and get auctions
+ [x] Should be able to get unfinished auctions with data set #0
+ [x] Should be able to get finished auctions with data set #0
+ [x] Should be able to update auctions
 
 Auctioneer (Dandevweb\Auction\Tests\Service\Auctioneer)
  [x] Avaliador deve encontrar o maior valor de lances with data set "ordem-crescente"
@@ -24,4 +26,7 @@ Closer (Dandevweb\Auction\Tests\Service\Closer)
  [x] Leiloes com mais de uma semana devem ser encerrados
  [x] Deve continuar o processamento ao encontrar erro ao enviar email
  [x] So deve enviar leilao por email apos finalizado
+
+Rest (Dandevweb\Auction\Tests\Integration\Dao\Web\Rest)
+ [x] Should be able return array of auctions
 

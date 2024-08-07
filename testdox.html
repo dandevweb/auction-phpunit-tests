@@ -60,7 +60,9 @@
         </ul>
         <h2>Auction Dao (Dandevweb\Auction\Tests\Integration\Dao\AuctionDao)</h2>
         <ul>
-            <li class="success">Should be able to save and get auctions</li>
+            <li class="success">Should be able to get unfinished auctions with data set #0</li>
+            <li class="success">Should be able to get finished auctions with data set #0</li>
+            <li class="success">Should be able to update auctions</li>
         </ul>
         <h2>Auctioneer (Dandevweb\Auction\Tests\Service\Auctioneer)</h2>
         <ul>
@@ -81,6 +83,10 @@
             <li class="success">Leiloes com mais de uma semana devem ser encerrados</li>
             <li class="success">Deve continuar o processamento ao encontrar erro ao enviar email</li>
             <li class="success">So deve enviar leilao por email apos finalizado</li>
+        </ul>
+        <h2>Rest (Dandevweb\Auction\Tests\Integration\Dao\Web\Rest)</h2>
+        <ul>
+            <li class="success">Should be able return array of auctions</li>
         </ul>
     </body>
 </html>

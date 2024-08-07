@@ -13,7 +13,7 @@ class Auction
         $this->con = $con;
     }
 
-    public function save(AuctionModel $auction): void
+    public function save(AuctionModel $auction): AuctionModel
     {
         $sql = 'INSERT INTO leiloes (descricao, finalizado, dataInicio) VALUES (?, ?, ?)';
         $stm = $this->con->prepare($sql);
@@ -21,6 +21,12 @@ class Auction
         $stm->bindValue(2, $auction->isFinished(), \PDO::PARAM_BOOL);
         $stm->bindValue(3, $auction->getStartDate()->format('Y-m-d'));
         $stm->execute();
+
+        return new AuctionModel(
+            $auction->getDescription(),
+            $auction->getStartDate(),
+            $this->con->lastInsertId()
+        );
     }
 
     public function getUnfinishedAuctions(): array
@@ -28,7 +34,7 @@ class Auction
         return $this->getAuctionsIfFinished(false);
     }
 
-    public function getCompleted(): array
+    public function getCompletedAuctions(): array
     {
         return $this->getAuctionsIfFinished(true);
     }

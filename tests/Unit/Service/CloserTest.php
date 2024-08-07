@@ -24,7 +24,7 @@ class CloserTest extends TestCase
         
         $leilaoDao = $this->createMock(LeilaoDao::class);
         $leilaoDao->method('getUnfinishedAuctions')->willReturn([$this->leilaoFiat147, $this->leilaoVariant]);
-        $leilaoDao->method('getCompleted')->willReturn([$this->leilaoFiat147, $this->leilaoVariant]);
+        $leilaoDao->method('getCompletedAuctions')->willReturn([$this->leilaoFiat147, $this->leilaoVariant]);
         $leilaoDao->expects($this->exactly(2))
             ->method('update');
 
